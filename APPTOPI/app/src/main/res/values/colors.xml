@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorMainVariant">#343438</color>
+    <color name="colorTxtGitUsername">#7ea9c9</color>
+    <color name="colorTxtGitName">#939398</color>
+    <color name="colorTxtGold">#e0971f</color>
 </resources>

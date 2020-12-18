@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">APP TOPI</string>
+    <string name="app_name">Github JavaPop</string>
+    <string name="tv_loading_date">Carregando dados...</string>
 </resources>

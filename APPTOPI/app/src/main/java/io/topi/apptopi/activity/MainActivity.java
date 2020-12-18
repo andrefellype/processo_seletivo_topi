@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
@@ -37,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     private GitAdapter gitAdapter;
     private FrameLayout flLoading;
     private RelativeLayout rlLoading;
+    private EditText edtSearch;
+    private List<GitItem> gitItemsList;
+    private ImageView ivSearch;
+    private ImageButton ibCancelSearch;
+    private ProgressBar pbSearchLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +60,73 @@ public class MainActivity extends AppCompatActivity {
         this.rvListGit = (RecyclerView) this.findViewById(R.id.rv_list_git);
         this.flLoading = (FrameLayout) this.findViewById(R.id.fl_loading);
         this.rlLoading = (RelativeLayout) this.findViewById(R.id.rl_loading);
+        this.edtSearch = (EditText) this.findViewById(R.id.edt_search);
+        this.ivSearch = (ImageView) this.findViewById(R.id.iv_search);
+        this.ibCancelSearch = (ImageButton) this.findViewById(R.id.ib_cancel_search);
+        this.pbSearchLoading = (ProgressBar) this.findViewById(R.id.pb_search_loading);
+
+        this.edtSearch.setEnabled(false);
+        this.edtSearch.clearFocus();
 
         this.rvListGit.setHasFixedSize(true);
         this.layoutManager = new LinearLayoutManager(this);
         this.rvListGit.setLayoutManager(this.layoutManager);
-        this.gitAdapter = new GitAdapter(this, new ArrayList<>());
+
+        this.gitItemsList = new ArrayList<>();
+        this.gitAdapter = new GitAdapter(this, gitItemsList);
         this.rvListGit.setAdapter(this.gitAdapter);
 
-        GitService.getGitApi(new GitService.GitApiCallback() {
+        this.getList();
+
+        this.edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onSucess(List<GitItem> gitItems) {
-                gitAdapter = new GitAdapter(MainActivity.this, gitItems);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()) {
+                    ivSearch.setVisibility(View.GONE);
+                    pbSearchLoading.setVisibility(View.VISIBLE);
+                    List<GitItem> gitItems = new ArrayList<>();
+                    for (GitItem gitItem : gitItemsList) {
+                        int posNameRepo = gitItem.getName().indexOf(s.toString());
+                        int posNameOwner = gitItem.getOwner().getLogin().indexOf(s.toString());
+                        if (posNameRepo >= 0 || posNameOwner >= 0) {
+                            gitItems.add(gitItem);
+                        }
+                    }
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItems);
+                    rvListGit.setAdapter(gitAdapter);
+                    ivSearch.setVisibility(View.VISIBLE);
+                    ibCancelSearch.setVisibility(View.VISIBLE);
+                    pbSearchLoading.setVisibility(View.GONE);
+                } else {
+                    ivSearch.setVisibility(View.VISIBLE);
+                    pbSearchLoading.setVisibility(View.GONE);
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItemsList);
+                    rvListGit.setAdapter(gitAdapter);
+                    ibCancelSearch.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        this.ibCancelSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtSearch.setText("");
+                ibCancelSearch.setVisibility(View.GONE);
+                srlRefreshList.setRefreshing(false);
+                rlLoading.setVisibility(View.VISIBLE);
+                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>());
                 rvListGit.setAdapter(gitAdapter);
-                flLoading.setVisibility(View.GONE);
+                edtSearch.setEnabled(false);
+                edtSearch.clearFocus();
+                getList();
             }
         });
 
@@ -72,14 +137,39 @@ public class MainActivity extends AppCompatActivity {
                 rlLoading.setVisibility(View.VISIBLE);
                 gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>());
                 rvListGit.setAdapter(gitAdapter);
-                GitService.getGitApi(new GitService.GitApiCallback() {
-                    @Override
-                    public void onSucess(List<GitItem> gitItems) {
-                        gitAdapter = new GitAdapter(MainActivity.this, gitItems);
-                        rvListGit.setAdapter(gitAdapter);
-                        rlLoading.setVisibility(View.GONE);
+                edtSearch.setEnabled(false);
+                edtSearch.clearFocus();
+                getList();
+            }
+        });
+    }
+
+    private void getList(){
+        GitService.getGitApi(new GitService.GitApiCallback() {
+            @Override
+            public void onSucess(List<GitItem> gitItems) {
+                gitItemsList = new ArrayList<>();
+                gitItemsList = gitItems;
+                if(edtSearch.getText().toString().isEmpty()) {
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItems);
+                    rvListGit.setAdapter(gitAdapter);
+                    flLoading.setVisibility(View.GONE);
+                    rlLoading.setVisibility(View.GONE);
+                } else {
+                    List<GitItem> listNew = new ArrayList<>();
+                    String search = edtSearch.getText().toString();
+                    for (GitItem gitItem : gitItems) {
+                        int posNameRepo = gitItem.getName().indexOf(search.toString());
+                        int posNameOwner = gitItem.getOwner().getLogin().indexOf(search.toString());
+                        if (posNameRepo >= 0 || posNameOwner >= 0) {
+                            listNew.add(gitItem);
+                        }
                     }
-                });
+                    gitAdapter = new GitAdapter(MainActivity.this, listNew);
+                    rvListGit.setAdapter(gitAdapter);
+                    rlLoading.setVisibility(View.GONE);
+                }
+                edtSearch.setEnabled(true);
             }
         });
     }

@@ -7,6 +7,43 @@
     tools:context=".activity.MainActivity">
 
     <LinearLayout
+        android:id="@+id/ll_not_connection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_loading"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_signal_cellular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/msg_not_connection"
+            android:textColor="@color/colorMainVariant"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/btn_again_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_again_connection"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:background="@color/colorMainVariant"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="1"

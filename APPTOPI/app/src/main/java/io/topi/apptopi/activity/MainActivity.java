@@ -6,34 +6,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import java.io.IOException;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.topi.apptopi.R;
 import io.topi.apptopi.adapter.GitAdapter;
+import io.topi.apptopi.adapter.RecyclerViewGitListener;
 import io.topi.apptopi.model.GitItem;
 import io.topi.apptopi.service.GitService;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivSearch;
     private ImageButton ibCancelSearch;
     private ProgressBar pbSearchLoading;
+    private ImageView ivSort;
+    private View layoutSort;
+    private View llSortName;
+    private View llSortStar;
+    private LinearLayout llMain;
+    private LinearLayout llNotConnection;
+    private Button btnAgainConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
         this.ivSearch = (ImageView) this.findViewById(R.id.iv_search);
         this.ibCancelSearch = (ImageButton) this.findViewById(R.id.ib_cancel_search);
         this.pbSearchLoading = (ProgressBar) this.findViewById(R.id.pb_search_loading);
+        this.ivSort = (ImageView) this.findViewById(R.id.iv_sort);
+        this.llMain = (LinearLayout) this.findViewById(R.id.ll_main);
+        this.llNotConnection = (LinearLayout) this.findViewById(R.id.ll_not_connection);
+        this.btnAgainConnection = (Button) this.findViewById(R.id.btn_again_connection);
+
+        this.layoutSort = this.getLayoutInflater().inflate(R.layout.layout_sort_list, null);
+        this.llSortName = layoutSort.findViewById(R.id.ll_sort_name);
+        this.llSortStar = layoutSort.findViewById(R.id.ll_sort_star);
+
+        this.llNotConnection.setVisibility(View.GONE);
+        this.llMain.setVisibility(View.VISIBLE);
 
         this.edtSearch.setEnabled(false);
         this.edtSearch.clearFocus();
@@ -73,7 +91,11 @@ public class MainActivity extends AppCompatActivity {
         this.rvListGit.setLayoutManager(this.layoutManager);
 
         this.gitItemsList = new ArrayList<>();
-        this.gitAdapter = new GitAdapter(this, gitItemsList);
+        this.gitAdapter = new GitAdapter(this, gitItemsList, new RecyclerViewGitListener<GitItem>() {
+            @Override
+            public void onItemClick(GitItem obj, int position) {
+            }
+        });
         this.rvListGit.setAdapter(this.gitAdapter);
 
         this.getList();
@@ -100,7 +122,12 @@ public class MainActivity extends AppCompatActivity {
                             gitItems.add(gitItem);
                         }
                     }
-                    gitAdapter = new GitAdapter(MainActivity.this, gitItems);
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItems, new RecyclerViewGitListener<GitItem>() {
+                        @Override
+                        public void onItemClick(GitItem obj, int position) {
+                            MainActivity.this.clickItemGit(obj);
+                        }
+                    });
                     rvListGit.setAdapter(gitAdapter);
                     ivSearch.setVisibility(View.VISIBLE);
                     ibCancelSearch.setVisibility(View.VISIBLE);
@@ -108,7 +135,12 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     ivSearch.setVisibility(View.VISIBLE);
                     pbSearchLoading.setVisibility(View.GONE);
-                    gitAdapter = new GitAdapter(MainActivity.this, gitItemsList);
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItemsList, new RecyclerViewGitListener<GitItem>() {
+                        @Override
+                        public void onItemClick(GitItem obj, int position) {
+                            MainActivity.this.clickItemGit(obj);
+                        }
+                    });
                     rvListGit.setAdapter(gitAdapter);
                     ibCancelSearch.setVisibility(View.GONE);
                 }
@@ -122,7 +154,11 @@ public class MainActivity extends AppCompatActivity {
                 ibCancelSearch.setVisibility(View.GONE);
                 srlRefreshList.setRefreshing(false);
                 rlLoading.setVisibility(View.VISIBLE);
-                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>());
+                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>(), new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                    }
+                });
                 rvListGit.setAdapter(gitAdapter);
                 edtSearch.setEnabled(false);
                 edtSearch.clearFocus();
@@ -135,23 +171,125 @@ public class MainActivity extends AppCompatActivity {
             public void onRefresh() {
                 srlRefreshList.setRefreshing(false);
                 rlLoading.setVisibility(View.VISIBLE);
-                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>());
+                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>(), new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                    }
+                });
                 rvListGit.setAdapter(gitAdapter);
                 edtSearch.setEnabled(false);
                 edtSearch.clearFocus();
                 getList();
             }
         });
+
+        final Dialog dialog = new MaterialDialog.Builder(MainActivity.this).customView(layoutSort, false).build();
+
+        this.ivSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+        this.llSortName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlLoading.setVisibility(View.VISIBLE);
+                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>(), new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                    }
+                });
+                rvListGit.setAdapter(gitAdapter);
+                edtSearch.setEnabled(false);
+
+                Collections.sort(gitItemsList, new Comparator<GitItem>() {
+                    @Override
+                    public int compare(GitItem o1, GitItem o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+
+                gitAdapter = new GitAdapter(MainActivity.this, gitItemsList, new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                        MainActivity.this.clickItemGit(obj);
+                    }
+                });
+                rvListGit.setAdapter(gitAdapter);
+                rlLoading.setVisibility(View.GONE);
+                edtSearch.setEnabled(true);
+                dialog.dismiss();
+            }
+        });
+
+        this.llSortStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlLoading.setVisibility(View.VISIBLE);
+                gitAdapter = new GitAdapter(MainActivity.this, new ArrayList<>(), new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                    }
+                });
+                rvListGit.setAdapter(gitAdapter);
+                edtSearch.setEnabled(false);
+
+                Collections.sort(gitItemsList, new Comparator<GitItem>() {
+                    @Override
+                    public int compare(GitItem o1, GitItem o2) {
+                        if(o1.getStargazers_count() > o2.getStargazers_count()) {
+                            return 1;
+                        } else if( o1.getStargazers_count() < o2.getStargazers_count()) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
+
+                gitAdapter = new GitAdapter(MainActivity.this, gitItemsList, new RecyclerViewGitListener<GitItem>() {
+                    @Override
+                    public void onItemClick(GitItem obj, int position) {
+                        MainActivity.this.clickItemGit(obj);
+                    }
+                });
+                rvListGit.setAdapter(gitAdapter);
+                rlLoading.setVisibility(View.GONE);
+                edtSearch.setEnabled(true);
+                dialog.dismiss();
+            }
+        });
+
+        this.btnAgainConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llNotConnection.setVisibility(View.GONE);
+                llMain.setVisibility(View.VISIBLE);
+                rlLoading.setVisibility(View.GONE);
+                flLoading.setVisibility(View.VISIBLE);
+                getList();
+            }
+        });
     }
 
-    private void getList(){
-        GitService.getGitApi(new GitService.GitApiCallback() {
+    public void getList(){
+        GitService.getGitApi("language:Java", "stars", "1", new GitService.GitApiCallback() {
             @Override
             public void onSucess(List<GitItem> gitItems) {
+                llNotConnection.setVisibility(View.GONE);
+                llMain.setVisibility(View.VISIBLE);
+
                 gitItemsList = new ArrayList<>();
                 gitItemsList = gitItems;
                 if(edtSearch.getText().toString().isEmpty()) {
-                    gitAdapter = new GitAdapter(MainActivity.this, gitItems);
+                    gitAdapter = new GitAdapter(MainActivity.this, gitItems, new RecyclerViewGitListener<GitItem>() {
+                        @Override
+                        public void onItemClick(GitItem obj, int position) {
+                            MainActivity.this.clickItemGit(obj);
+                        }
+                    });
                     rvListGit.setAdapter(gitAdapter);
                     flLoading.setVisibility(View.GONE);
                     rlLoading.setVisibility(View.GONE);
@@ -165,12 +303,32 @@ public class MainActivity extends AppCompatActivity {
                             listNew.add(gitItem);
                         }
                     }
-                    gitAdapter = new GitAdapter(MainActivity.this, listNew);
+                    gitAdapter = new GitAdapter(MainActivity.this, listNew, new RecyclerViewGitListener<GitItem>() {
+                        @Override
+                        public void onItemClick(GitItem obj, int position) {
+                            MainActivity.this.clickItemGit(obj);
+                        }
+                    });
                     rvListGit.setAdapter(gitAdapter);
                     rlLoading.setVisibility(View.GONE);
                 }
                 edtSearch.setEnabled(true);
             }
+
+            @Override
+            public void onNotConnection() {
+                llNotConnection.setVisibility(View.VISIBLE);
+                llMain.setVisibility(View.GONE);
+                rlLoading.setVisibility(View.GONE);
+                flLoading.setVisibility(View.GONE);
+            }
         });
+    }
+
+    private void clickItemGit(GitItem gitItem){
+        Intent intent = new Intent(MainActivity.this, MoreDetailsActivity.class);
+        intent.putExtra("git_bundle", gitItem);
+        startActivity(intent);
+        finish();
     }
 }

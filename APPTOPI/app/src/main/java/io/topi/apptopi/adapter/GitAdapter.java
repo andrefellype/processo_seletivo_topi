@@ -25,10 +25,12 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private List<GitItem> lista;
+    private RecyclerViewGitListener recyclerViewGitListener;
 
-    public GitAdapter(Context context, List<GitItem> lista){
+    public GitAdapter(Context context, List<GitItem> lista, RecyclerViewGitListener<GitItem> recyclerViewGitListener){
         this.context = context;
         this.lista = new ArrayList<>(lista);
+        this.recyclerViewGitListener = recyclerViewGitListener;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ViewHolderGit viewHolderGit = (ViewHolderGit) vh;
 
         GitItem gitItem = lista.get(position);
+
         viewHolderGit.tvNameRepo.setText(gitItem.getName());
 
         int limitDescription = 70;
@@ -64,8 +67,8 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             description += "...";
         }
         viewHolderGit.tvDescriptionRepo.setText(description);
-        viewHolderGit.tvForks.setText((gitItem.getForks() + ""));
-        viewHolderGit.tvStargazers.setText((gitItem.getStargazers_count() + ""));
+        viewHolderGit.tvForks.setText(Integer.toString(gitItem.getForks()));
+        viewHolderGit.tvStargazers.setText(Integer.toString(gitItem.getStargazers_count()));
 
         if(gitItem.getOwner() != null) {
             if(gitItem.getOwner().getAvatar_url() != null && gitItem.getOwner().getAvatar_url().length() > 0) {
@@ -78,6 +81,13 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             viewHolderGit.tvUsernameUser.setText(gitItem.getOwner().getLogin());
         }
+
+        viewHolderGit.tvMoreDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerViewGitListener.onItemClick(lista.get(position), position);
+            }
+        });
     }
 
     private int listPosition(int position) {
@@ -95,6 +105,7 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvStargazers = (TextView) itemView.findViewById(R.id.tv_stargazers);
             ivUser = (ImageView) itemView.findViewById(R.id.iv_user);
             tvUsernameUser = (TextView) itemView.findViewById(R.id.tv_username_user);
+            tvMoreDetails = (TextView) itemView.findViewById(R.id.tv_more_details);
         }
 
         public MaterialCardView cvGit;
@@ -104,5 +115,6 @@ public class GitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public TextView tvStargazers;
         public ImageView ivUser;
         public TextView tvUsernameUser;
+        public TextView tvMoreDetails;
     }
 }

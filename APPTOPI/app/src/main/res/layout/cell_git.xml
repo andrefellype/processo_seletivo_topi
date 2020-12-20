@@ -17,129 +17,150 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/tv_name_repo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nome Repositório"
-                    android:textColor="@color/colorTxtGitUsername"
-                    android:textStyle="bold"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/tv_description_repo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descrição do repositório lorem ipsum dolor sit ament lorem impsum dolor..."
-                    android:textStyle="bold"
-                    android:textSize="15dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tv_name_repo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:text="Nome Repositório"
+                        android:textColor="@color/colorTxtGitUsername"
+                        android:textStyle="bold"
+                        android:textSize="15dp" />
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_merge_type"
-                            app:tint="@color/colorTxtGold" />
-
-                        <TextView
-                            android:id="@+id/tv_forks"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="640"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorTxtGold"
-                            android:textSize="17dp"/>
-
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_description_repo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descrição do repositório lorem ipsum dolor sit ament lorem impsum dolor..."
+                        android:textStyle="bold"
+                        android:textSize="15dp" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:layout_marginTop="10dp">
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_star"
-                            app:tint="@color/colorTxtGold" />
-
-                        <TextView
-                            android:id="@+id/tv_stargazers"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="98"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorTxtGold"
-                            android:textSize="17dp"/>
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_merge_type"
+                                app:tint="@color/colorTxtGold" />
+
+                            <TextView
+                                android:id="@+id/tv_forks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="640"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorTxtGold"
+                                android:textSize="17dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="@color/colorTxtGold" />
+
+                            <TextView
+                                android:id="@+id/tv_stargazers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="98"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorTxtGold"
+                                android:textSize="17dp"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_user"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:srcCompat="@drawable/person_circle"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/tv_username_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="USERNAME"
+                        android:textColor="@color/colorTxtGitUsername"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="5dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_name_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NOME SOBRENOME"
+                        android:textColor="@color/colorTxtGitName"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:gravity="center_horizontal"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_user"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    app:srcCompat="@drawable/person_circle"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/tv_username_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="USERNAME"
-                    android:textColor="@color/colorTxtGitUsername"
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="5dp"/>
-
-                <TextView
-                    android:id="@+id/tv_name_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NOME SOBRENOME"
-                    android:textColor="@color/colorTxtGitName"
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:gravity="center_horizontal"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_more_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:textColor="@color/colorMainVariant"
+                android:textSize="15dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:text="MAIS DETALHES" />
 
         </LinearLayout>
 

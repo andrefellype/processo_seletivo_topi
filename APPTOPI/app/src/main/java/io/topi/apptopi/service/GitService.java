@@ -20,23 +20,29 @@ public class GitService {
 
     public interface GitApiCallback {
         void onSucess(List<GitItem> gitItems);
+        void onNotConnection();
     }
 
-    public static void getGitApi(final GitApiCallback gitApiCallback) {
-        ServiceConfig.getRetrofit().create(GitServiceRetrofit.class).getList()
+    public static void getGitApi(String query, String sort, String page, final GitApiCallback gitApiCallback) {
+        ServiceConfig.getRetrofit().create(GitServiceRetrofit.class).getList(query, sort, page)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        Type typeList = new TypeToken<List<GitItem>>() {}.getType();
-                        Gson gson = new Gson();
-                        List<GitItem> gitItems = (List<GitItem>) gson.fromJson(response.body().getAsJsonArray("items").toString(), typeList);
-                        gitApiCallback.onSucess(gitItems);
+                        if(response.code() == 200) {
+                            Type typeList = new TypeToken<List<GitItem>>() {
+                            }.getType();
+                            Gson gson = new Gson();
+                            List<GitItem> gitItems = (List<GitItem>) gson.fromJson(response.body().getAsJsonArray("items").toString(), typeList);
+                            gitApiCallback.onSucess(gitItems);
+                        } else {
+                            gitApiCallback.onNotConnection();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Log.e("FAIL_APP", "FAIL");
                         Log.e("FAIL_APP", t.getMessage());
+                        gitApiCallback.onNotConnection();
                     }
                 });
     }

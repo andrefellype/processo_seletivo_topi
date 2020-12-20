@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Github JavaPop</string>
     <string name="tv_loading_date">Carregando dados...</string>
+    <string name="title_sort">QUAL ORDENAÇÃO QUE DESEJA?</string>
+    <string name="title_sort_name">ORDERNAR POR NOME</string>
+    <string name="title_sort_star">ORDERNAR POR N° DE ESTRELAS</string>
+    <string name="title_repositorio">DADOS DO REPOSITÓRIO</string>
+    <string name="msg_not_connection">SEM CONEXÃO</string>
+    <string name="btn_again_connection">TENTAR NOVAMENTE</string>
 </resources>

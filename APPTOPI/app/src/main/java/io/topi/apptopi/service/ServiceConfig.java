@@ -15,7 +15,6 @@ public class ServiceConfig {
 
     public static Retrofit getRetrofit(){
         String url = "https://api.github.com/search/";
-
         OkHttpClient client = new OkHttpClient.Builder().connectTimeout(25, TimeUnit.SECONDS)
                 .writeTimeout(25, TimeUnit.SECONDS).connectTimeout(25, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true).addInterceptor(new Interceptor() {

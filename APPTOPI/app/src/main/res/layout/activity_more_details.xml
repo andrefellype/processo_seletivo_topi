@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edt_name_repository"
+                android:id="@+id/edtNameRepository"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
@@ -45,7 +45,7 @@
                         app:tint="@color/colorTxtGold" />
 
                     <TextView
-                        android:id="@+id/tv_forks"
+                        android:id="@+id/tvForks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="640"
@@ -69,7 +69,7 @@
                         app:tint="@color/colorTxtGold" />
 
                     <TextView
-                        android:id="@+id/tv_stargazers"
+                        android:id="@+id/tvStargazers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="98"
@@ -82,7 +82,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edt_description_repository"
+                android:id="@+id/edtDescriptionRepository"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:inputType="textMultiLine"
@@ -108,7 +108,7 @@
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
-                android:id="@+id/tv_username_user"
+                android:id="@+id/tvUsernameUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="USERNAME"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="5dp"/>
 
             <Button
-                android:id="@+id/btn_back"
+                android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

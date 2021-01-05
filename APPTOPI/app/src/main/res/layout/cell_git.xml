@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_git"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/colorMainVariant"
+        android:layout_centerInParent="true"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -33,7 +33,7 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
-                        android:id="@+id/tv_name_repo"
+                        android:id="@+id/tvNameRepo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nome Repositório"
@@ -42,7 +42,7 @@
                         android:textSize="15dp" />
 
                     <TextView
-                        android:id="@+id/tv_description_repo"
+                        android:id="@+id/tvDescriptionRepo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Descrição do repositório lorem ipsum dolor sit ament lorem impsum dolor..."
@@ -69,7 +69,7 @@
                                 app:tint="@color/colorTxtGold" />
 
                             <TextView
-                                android:id="@+id/tv_forks"
+                                android:id="@+id/tvForks"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="640"
@@ -93,7 +93,7 @@
                                 app:tint="@color/colorTxtGold" />
 
                             <TextView
-                                android:id="@+id/tv_stargazers"
+                                android:id="@+id/tvStargazers"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="98"
@@ -115,7 +115,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/iv_user"
+                        android:id="@+id/ivUser"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         app:srcCompat="@drawable/person_circle"
@@ -123,7 +123,7 @@
                         android:layout_gravity="center_horizontal"/>
 
                     <TextView
-                        android:id="@+id/tv_username_user"
+                        android:id="@+id/tvUsernameUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="USERNAME"
@@ -133,23 +133,12 @@
                         android:gravity="center_horizontal"
                         android:layout_marginTop="5dp"/>
 
-                    <TextView
-                        android:id="@+id/tv_name_user"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="NOME SOBRENOME"
-                        android:textColor="@color/colorTxtGitName"
-                        android:textStyle="bold"
-                        android:textSize="12dp"
-                        android:gravity="center_horizontal"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_more_details"
+                android:id="@+id/tvMoreDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -160,10 +149,10 @@
                 android:textSize="15dp"
                 android:layout_marginBottom="10dp"
                 android:clickable="true"
-                android:text="MAIS DETALHES" />
+                android:text="@string/tv_more_details" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+</RelativeLayout>

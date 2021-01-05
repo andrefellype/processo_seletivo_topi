@@ -25,7 +25,7 @@
                 android:textSize="18dp" />
 
             <LinearLayout
-                android:id="@+id/ll_sort_name"
+                android:id="@+id/llSortName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -73,7 +73,7 @@
                 android:background="@color/black" />
 
             <LinearLayout
-                android:id="@+id/ll_sort_star"
+                android:id="@+id/llSortStar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

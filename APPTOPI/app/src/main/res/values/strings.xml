@@ -7,4 +7,5 @@
     <string name="title_repositorio">DADOS DO REPOSITÓRIO</string>
     <string name="msg_not_connection">SEM CONEXÃO</string>
     <string name="btn_again_connection">TENTAR NOVAMENTE</string>
+    <string name="tv_more_details">MAIS DETALHES</string>
 </resources>

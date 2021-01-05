@@ -9,34 +9,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import io.topi.apptopi.R;
 import io.topi.apptopi.model.GitItem;
 
+@EActivity(R.layout.activity_more_details)
 public class MoreDetailsActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_details);
+    @ViewById
+    protected EditText edtNameRepository;
+    @ViewById
+    protected TextView tvForks;
+    @ViewById
+    protected TextView tvStargazers;
+    @ViewById
+    protected EditText edtDescriptionRepository;
+    @ViewById
+    protected TextView tvUsernameUser;
+
+    @AfterViews
+    protected void initMain() {
         getSupportActionBar().setTitle(getString(R.string.title_repositorio));
 
         GitItem gitItem = (GitItem) getIntent().getExtras().getSerializable("git_bundle");
-
-        EditText edtNameRepository = (EditText) this.findViewById(R.id.edt_name_repository);
-        TextView tvForks = (TextView) this.findViewById(R.id.tv_forks);
-        TextView tvStargazers = (TextView) this.findViewById(R.id.tv_stargazers);
-        EditText edtDescriptionRepository = (EditText) this.findViewById(R.id.edt_description_repository);
-        TextView tvUsernameUser = (TextView) this.findViewById(R.id.tv_username_user);
-        Button btnBack = (Button) this.findViewById(R.id.btn_back);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MoreDetailsActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         if(gitItem != null){
             edtNameRepository.setText(gitItem.getName());
@@ -45,5 +44,10 @@ public class MoreDetailsActivity extends AppCompatActivity {
             edtDescriptionRepository.setText(gitItem.getDescription());
             tvUsernameUser.setText(gitItem.getOwner().getLogin());
         }
+    }
+
+    @Click(R.id.btnBack)
+    void clickBack(){
+        onBackPressed();
     }
 }

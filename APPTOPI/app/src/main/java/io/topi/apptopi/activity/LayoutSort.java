@@ -19,12 +19,6 @@ import io.topi.apptopi.viewmodel.GitItemViewModel;
 @EViewGroup(R.layout.layout_sort_list)
 public class LayoutSort extends LinearLayout {
 
-    @ViewById
-    protected LinearLayout llSortName;
-
-    @ViewById
-    protected LinearLayout llSortStar;
-
     private GitItemViewModel gitItemViewModel;
 
     public LayoutSort(Context context) {
@@ -32,13 +26,13 @@ public class LayoutSort extends LinearLayout {
         gitItemViewModel = new ViewModelProvider((FragmentActivity) context).get(GitItemViewModel.class);
     }
 
-    @Click(R.id.llSortName)
+    @Click(R.id.ivSortNameSelect)
     void clickSortName(){
         gitItemViewModel.setLdRefreshList(0);
         gitItemViewModel.getListSortName();
     }
 
-    @Click(R.id.llSortStar)
+    @Click(R.id.ivSortStarSelect)
     void clickSortStar(){
         gitItemViewModel.setLdRefreshList(0);
         gitItemViewModel.getListSortStar();

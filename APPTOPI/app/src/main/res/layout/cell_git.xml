@@ -1,158 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/colorMainVariant"
+    app:cardElevation="0dp">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/colorMainVariant"
-        android:layout_centerInParent="true"
-        app:cardElevation="0dp">
+        android:layout_margin="10dp"
+        tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvNameRepo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Nome Repositório"
+            android:textColor="@color/colorTxtGitUsername"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivUser"
+            android:textSize="15dp"
+            tools:ignore="MissingConstraints" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvDescriptionRepo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Descrição do repositório lorem ipsum dolor sit ament lorem impsum dolor..."
+            android:textStyle="bold"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivUser"
+            app:layout_constraintTop_toBottomOf="@id/tvNameRepo"
+            tools:ignore="MissingConstraints" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/ivUser"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:srcCompat="@drawable/person_circle"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
 
-                    <TextView
-                        android:id="@+id/tvNameRepo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nome Repositório"
-                        android:textColor="@color/colorTxtGitUsername"
-                        android:textStyle="bold"
-                        android:textSize="15dp" />
+        <include
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionRepo"
+            android:layout_marginTop="10dp"
+            layout="@layout/layout_fork_side_star" />
 
-                    <TextView
-                        android:id="@+id/tvDescriptionRepo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Descrição do repositório lorem ipsum dolor sit ament lorem impsum dolor..."
-                        android:textStyle="bold"
-                        android:textSize="15dp" />
+        <TextView
+            android:id="@+id/tvUsernameUser"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="USERNAME"
+            android:textColor="@color/colorTxtGitUsername"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/ivUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            android:gravity="center_horizontal" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tvMoreDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold"
+            android:textColor="@color/colorMainVariant"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            app:layout_constraintTop_toBottomOf="@id/tvUsernameUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/tv_more_details" />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_merge_type"
-                                app:tint="@color/colorTxtGold" />
-
-                            <TextView
-                                android:id="@+id/tvForks"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="640"
-                                android:textStyle="bold"
-                                android:textColor="@color/colorTxtGold"
-                                android:textSize="17dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_star"
-                                app:tint="@color/colorTxtGold" />
-
-                            <TextView
-                                android:id="@+id/tvStargazers"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="98"
-                                android:textStyle="bold"
-                                android:textColor="@color/colorTxtGold"
-                                android:textSize="17dp"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/ivUser"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        app:srcCompat="@drawable/person_circle"
-                        android:scaleType="fitXY"
-                        android:layout_gravity="center_horizontal"/>
-
-                    <TextView
-                        android:id="@+id/tvUsernameUser"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="USERNAME"
-                        android:textColor="@color/colorTxtGitUsername"
-                        android:textStyle="bold"
-                        android:textSize="12dp"
-                        android:gravity="center_horizontal"
-                        android:layout_marginTop="5dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvMoreDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_gravity="right"
-                android:textStyle="bold"
-                android:textColor="@color/colorMainVariant"
-                android:textSize="15dp"
-                android:layout_marginBottom="10dp"
-                android:clickable="true"
-                android:text="@string/tv_more_details" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-</RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

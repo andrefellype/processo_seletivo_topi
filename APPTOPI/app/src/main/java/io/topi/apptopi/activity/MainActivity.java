@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,9 +15,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -43,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     protected RecyclerView rvListGit;
     @ViewById
-    protected FrameLayout flLoading;
+    protected ProgressBar pbLoading;
     @ViewById
-    protected RelativeLayout rlLoading;
+    protected View viewRlLoading;
     @ViewById
     protected EditText edtSearch;
     @ViewById
@@ -55,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     protected ProgressBar pbSearchLoading;
     @ViewById
-    protected LinearLayout llMain;
+    protected View viewMain;
     @ViewById
-    protected LinearLayout llNotConnection;
+    protected View viewNotConnect;
 
     private RecyclerView.LayoutManager layoutManager;
     private Dialog dialog;
@@ -72,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
 
-        this.llNotConnection.setVisibility(View.GONE);
-        this.llMain.setVisibility(View.VISIBLE);
+        this.viewNotConnect.setVisibility(View.GONE);
+        this.viewMain.setVisibility(View.VISIBLE);
 
         this.edtSearch.setEnabled(false);
         this.edtSearch.clearFocus();
@@ -129,14 +126,14 @@ public class MainActivity extends AppCompatActivity {
             if (this.dialog.isShowing()) {
                 this.dialog.dismiss();
             }
-            if (llNotConnection.getVisibility() == View.VISIBLE) {
-                llNotConnection.setVisibility(View.GONE);
+            if (viewNotConnect.getVisibility() == View.VISIBLE) {
+                viewNotConnect.setVisibility(View.GONE);
             }
-            if (flLoading.getVisibility() == View.GONE) {
-                flLoading.setVisibility(View.VISIBLE);
+            if (pbLoading.getVisibility() == View.GONE) {
+                pbLoading.setVisibility(View.VISIBLE);
             }
-            if (rlLoading.getVisibility() == View.GONE) {
-                rlLoading.setVisibility(View.VISIBLE);
+            if (viewRlLoading.getVisibility() == View.GONE) {
+                viewRlLoading.setVisibility(View.VISIBLE);
             }
             if(rvListGit.getVisibility() == View.VISIBLE){
                 rvListGit.setVisibility(View.GONE);
@@ -146,14 +143,14 @@ public class MainActivity extends AppCompatActivity {
             if(dialog.isShowing()){
                 dialog.dismiss();
             }
-            if (llMain.getVisibility() == View.GONE) {
-                llMain.setVisibility(View.VISIBLE);
+            if (viewMain.getVisibility() == View.GONE) {
+                viewMain.setVisibility(View.VISIBLE);
             }
-            if (flLoading.getVisibility() == View.VISIBLE) {
-                flLoading.setVisibility(View.GONE);
+            if (pbLoading.getVisibility() == View.VISIBLE) {
+                pbLoading.setVisibility(View.GONE);
             }
-            if (rlLoading.getVisibility() == View.VISIBLE) {
-                rlLoading.setVisibility(View.GONE);
+            if (viewRlLoading.getVisibility() == View.VISIBLE) {
+                viewRlLoading.setVisibility(View.GONE);
             }
             if (rvListGit.getVisibility() == View.GONE) {
                 rvListGit.setVisibility(View.VISIBLE);
@@ -164,31 +161,31 @@ public class MainActivity extends AppCompatActivity {
 
     void notConnection(Boolean status)  {
         if(!status) {
-            if (llMain.getVisibility() == View.GONE) {
-                llMain.setVisibility(View.VISIBLE);
+            if (viewMain.getVisibility() == View.GONE) {
+                viewMain.setVisibility(View.VISIBLE);
             }
-            if (flLoading.getVisibility() == View.VISIBLE) {
-                flLoading.setVisibility(View.GONE);
+            if (pbLoading.getVisibility() == View.VISIBLE) {
+                pbLoading.setVisibility(View.GONE);
             }
-            if (rlLoading.getVisibility() == View.VISIBLE) {
-                rlLoading.setVisibility(View.GONE);
+            if (viewRlLoading.getVisibility() == View.VISIBLE) {
+                viewRlLoading.setVisibility(View.GONE);
             }
             if (rvListGit.getVisibility() == View.GONE) {
                 rvListGit.setVisibility(View.VISIBLE);
             }
             edtSearch.setEnabled(true);
         } else {
-            if (llMain.getVisibility() == View.VISIBLE) {
-                llMain.setVisibility(View.GONE);
+            if (viewMain.getVisibility() == View.VISIBLE) {
+                viewMain.setVisibility(View.GONE);
             }
-            if (llNotConnection.getVisibility() == View.GONE) {
-                llNotConnection.setVisibility(View.VISIBLE);
+            if (viewNotConnect.getVisibility() == View.GONE) {
+                viewNotConnect.setVisibility(View.VISIBLE);
             }
-            if (flLoading.getVisibility() == View.VISIBLE) {
-                flLoading.setVisibility(View.GONE);
+            if (pbLoading.getVisibility() == View.VISIBLE) {
+                pbLoading.setVisibility(View.GONE);
             }
-            if (rlLoading.getVisibility() == View.VISIBLE) {
-                rlLoading.setVisibility(View.GONE);
+            if (viewRlLoading.getVisibility() == View.VISIBLE) {
+                viewRlLoading.setVisibility(View.GONE);
             }
             if (rvListGit.getVisibility() == View.GONE) {
                 rvListGit.setVisibility(View.VISIBLE);

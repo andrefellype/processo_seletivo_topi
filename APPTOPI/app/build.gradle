@@ -70,7 +70,4 @@ dependencies {
     annotationProcessor "org.androidannotations:androidannotations:4.6.0"
     implementation "org.androidannotations:androidannotations-api:4.6.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    
-    implementation 'com.google.dagger:dagger:2.x'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
 }

@@ -4,130 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MoreDetailsActivity">
+    tools:context=".activity.MoreDetailsActivity"
+    android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edtNameRepository"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:enabled="false"
+        android:text="REPOSITÓRIO"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivUser"
+        tools:ignore="MissingConstraints" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical">
+    <include
+        android:id="@+id/viewForkStar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edtNameRepository"
+        app:layout_constraintEnd_toStartOf="@id/ivUser"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/layout_fork_side_star" />
 
-            <EditText
-                android:id="@+id/edtNameRepository"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="REPOSITÓRIO" />
+    <ImageView
+        android:id="@+id/ivUser"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        app:srcCompat="@drawable/person_circle"
+        android:scaleType="fitXY"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+    <EditText
+        android:id="@+id/edtDescriptionRepository"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:inputType="textMultiLine"
+        android:text="DESCRIÇÃO DO REPOSITÓRIO"
+        android:enabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewForkStar"
+        app:layout_constraintEnd_toStartOf="@id/tvUsernameUser"
+        tools:ignore="MissingConstraints" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical|center_horizontal">
+    <TextView
+        android:id="@+id/tvUsernameUser"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="USERNAME"
+        android:textColor="@color/colorTxtGitUsername"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivUser"
+        tools:ignore="MissingConstraints" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_merge_type"
-                        app:tint="@color/colorTxtGold" />
-
-                    <TextView
-                        android:id="@+id/tvForks"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="640"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorTxtGold"
-                        android:textSize="17dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical|center_horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_star"
-                        app:tint="@color/colorTxtGold" />
-
-                    <TextView
-                        android:id="@+id/tvStargazers"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="98"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorTxtGold"
-                        android:textSize="17dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/edtDescriptionRepository"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:inputType="textMultiLine"
-                android:text="DESCRIÇÃO DO REPOSITÓRIO"
-                android:enabled="false"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_user"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                app:srcCompat="@drawable/person_circle"
-                android:scaleType="fitXY"
-                android:layout_gravity="center_horizontal"/>
-
-            <TextView
-                android:id="@+id/tvUsernameUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="USERNAME"
-                android:textColor="@color/colorTxtGitUsername"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="5dp"/>
-
-            <Button
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="VOLTAR" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="VOLTAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUsernameUser"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

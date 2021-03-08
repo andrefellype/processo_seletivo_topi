@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">APP GITHUB</string>
+
+    <string name="tv_not_connect">SEM CONEXÃO</string>
+    <string name="btn_update">ATUALIZAR</string>
+    <string name="tv_actionbar">GITHUB JAVAPOP</string>
+    <string name="title_sort">QUAL ORDENAÇÃO QUE DESEJA?</string>
+    <string name="title_sort_name">ORDERNAR POR NOME</string>
+    <string name="title_sort_star">ORDERNAR POR N° DE ESTRELAS</string>
+</resources>
